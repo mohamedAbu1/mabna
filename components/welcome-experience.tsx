@@ -82,7 +82,7 @@ export function WelcomeExperience() {
         <h1 id="welcome-title" className="welcome-word" aria-label={word}>
           {word.split("").map((letter, index) => <span key={letter} style={{ "--letter-index": index } as CSSProperties}>{letter}</span>)}
         </h1>
-        <p className="welcome-arabic" lang="ar" dir="rtl">مرحبًا بك في موقعنا</p>
+        <p className="welcome-message" lang="en" dir="ltr">Welcome to MABNA.</p>
         <p className="welcome-tagline">Build with better materials.</p>
         <div className="welcome-progress" aria-hidden="true"><span /></div>
         <p className="welcome-phase">STRUCTURE / CRAFT / DIRECTION</p>
