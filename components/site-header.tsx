@@ -15,7 +15,7 @@ export function SiteHeader({ active }: { active?: string }) {
             <summary><span>Products</span><ChevronDown size={15} /></summary>
             <div className="page-product-dropdown">
               <Link href="/products" className="page-product-all">All products <ArrowUpRight size={15} /></Link>
-              {catalogCategories.slice(0, 5).map((category) => (
+              {catalogCategories.map((category) => (
                 <Link href={`/products/${category.slug}`} key={category.slug}>
                   <strong>{category.title}</strong>
                   <small>{category.accent}</small>

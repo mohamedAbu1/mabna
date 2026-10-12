@@ -5,7 +5,16 @@ import { CatalogBrowser } from "@/components/catalog-browser";
 import { PageEyebrow, PageShell, SectionHeading } from "@/components/page-shell";
 import { catalogCategories } from "@/lib/catalog";
 
-export default function ProductsPage() {
+type ProductsPageProps = {
+  searchParams?: Promise<{ q?: string | string[]; category?: string | string[] }>;
+};
+
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+  const params = searchParams ? await searchParams : {};
+  const query = Array.isArray(params.q) ? params.q[0] ?? "" : params.q ?? "";
+  const rawCategory = Array.isArray(params.category) ? params.category[0] ?? "" : params.category ?? "";
+  const category = rawCategory || "all";
+
   return (
     <PageShell active="products">
       <section className="page-hero products-hero">
@@ -17,7 +26,7 @@ export default function ProductsPage() {
 
       <section className="page-section category-directory"><SectionHeading eyebrow="The MABNA catalogue" title="Choose the system you are solving for." description="The best material choice starts with context. Open a department for a focused view, then send us the quantities or specifications you already have." /><div className="directory-grid">{catalogCategories.map((category) => <Link href={`/products/${category.slug}`} className="directory-card" key={category.slug}><div className="directory-image" style={{ backgroundImage: `url(${category.image})` }}><span>{category.eyebrow}</span></div><div className="directory-copy"><span className="directory-accent">{category.accent}</span><h3>{category.title}</h3><p>{category.description}</p><span className="text-link">Open department <ArrowUpRight size={17} /></span></div></Link>)}</div></section>
 
-      <section id="catalogue" className="page-section"><div className="catalog-section-head"><SectionHeading eyebrow="Quote-ready starting points" title="A focused catalogue, not a noisy warehouse." description="Use these starting points to shape a material brief. Final availability and pricing are confirmed against your project, quantity and delivery needs." /><Link href="/contact" className="outline-button">Send a BOQ <ArrowUpRight size={17} /></Link></div><CatalogBrowser /></section>
+      <section id="catalogue" className="page-section"><div className="catalog-section-head"><SectionHeading eyebrow="Quote-ready starting points" title="A focused catalogue, not a noisy warehouse." description="Use these starting points to shape a material brief. Final availability and pricing are confirmed against your project, quantity and delivery needs." /><Link href="/contact" className="outline-button">Send a BOQ <ArrowUpRight size={17} /></Link></div><CatalogBrowser initialQuery={query} initialCategory={category} /></section>
     </PageShell>
   );
 }

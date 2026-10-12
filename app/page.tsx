@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Boxes,
   Calculator,
-  Check,
   ChevronDown,
   ClipboardList,
   FileText,
@@ -19,10 +18,9 @@ import {
   Truck,
   UserRound,
   Wrench,
-  X,
 } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 type MaterialKey = "steel" | "cement" | "tools";
 
@@ -32,6 +30,7 @@ const materials: Array<{
   short: string;
   description: string;
   imageClass: string;
+  href: string;
 }> = [
   {
     key: "steel",
@@ -39,6 +38,7 @@ const materials: Array<{
     short: "Steel & Sections",
     description: "Sections, pipes and structural steel",
     imageClass: "planner-steel",
+    href: "/products/steel-sections",
   },
   {
     key: "cement",
@@ -46,6 +46,7 @@ const materials: Array<{
     short: "Cement & Materials",
     description: "Cement, blocks and site essentials",
     imageClass: "planner-cement",
+    href: "/products/cement-materials",
   },
   {
     key: "tools",
@@ -53,14 +54,15 @@ const materials: Array<{
     short: "Building Tools",
     description: "Reliable tools for every stage",
     imageClass: "planner-tools",
+    href: "/products/tools-equipment",
   },
 ];
 
 const categories = [
-  { title: "Site Setup", kind: "site", icon: House, caption: "Everything you need before the first pour." },
-  { title: "Building Tools", kind: "tools", icon: Hammer, caption: "Tools that stay ready for the work ahead." },
-  { title: "Cement & Materials", kind: "cement", icon: Package, caption: "Strong foundations start with the right mix." },
-  { title: "Steel & Sections", kind: "steel", icon: Wrench, caption: "Built for the structure you have in mind." },
+  { title: "Site Setup", kind: "site", href: "/products/site-setup", icon: House, caption: "Everything you need before the first pour." },
+  { title: "Building Tools", kind: "tools", href: "/products/tools-equipment", icon: Hammer, caption: "Tools that stay ready for the work ahead." },
+  { title: "Cement & Materials", kind: "cement", href: "/products/cement-materials", icon: Package, caption: "Strong foundations start with the right mix." },
+  { title: "Steel & Sections", kind: "steel", href: "/products/steel-sections", icon: Wrench, caption: "Built for the structure you have in mind." },
 ];
 
 function Logo({ light = false }: { light?: boolean }) {
@@ -72,51 +74,8 @@ function Logo({ light = false }: { light?: boolean }) {
   );
 }
 
-function IconButton({
-  label,
-  children,
-  onClick,
-  className = "",
-}: {
-  label: string;
-  children: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
-}) {
-  return (
-    <button type="button" aria-label={label} className={`icon-button ${className}`} onClick={onClick}>
-      {children}
-    </button>
-  );
-}
-
 export default function Home() {
   const [selectedMaterial, setSelectedMaterial] = useState<MaterialKey>("steel");
-  const [productsOpen, setProductsOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [estimateOpen, setEstimateOpen] = useState(false);
-  const [quantity, setQuantity] = useState("250");
-  const [submitted, setSubmitted] = useState(false);
-
-  const selected = useMemo(
-    () => materials.find((material) => material.key === selectedMaterial) ?? materials[0],
-    [selectedMaterial],
-  );
-
-  function openEstimate() {
-    setSubmitted(false);
-    setEstimateOpen(true);
-  }
-
-  function closeEstimate() {
-    setEstimateOpen(false);
-    setSubmitted(false);
-  }
-
-  function scrollToSection(id: string) {
-    setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
 
   return (
     <main className="mabna-site">
@@ -126,61 +85,49 @@ export default function Home() {
       <header className="desktop-nav glass-panel">
         <div className="nav-actions">
           <div className="nav-icon-group">
-            <IconButton label="Shopping cart"><ShoppingCart size={25} strokeWidth={2} /><span className="cart-badge">3</span></IconButton>
+              <Link href="/products" className="icon-button" aria-label="Browse products"><ShoppingCart size={25} strokeWidth={2} /></Link>
             <span className="nav-divider" />
-            <IconButton label="Account"><UserRound size={24} strokeWidth={2} /></IconButton>
+              <Link href="/contact" className="icon-button" aria-label="Contact MABNA"><UserRound size={24} strokeWidth={2} /></Link>
             <span className="nav-divider" />
-            <IconButton label="Search"><Search size={25} strokeWidth={2} /></IconButton>
+              <Link href="/products#catalogue" className="icon-button" aria-label="Search products"><Search size={25} strokeWidth={2} /></Link>
           </div>
         </div>
 
         <nav className="desktop-links" aria-label="Main navigation">
-          <div className="product-menu">
-            <button type="button" onClick={() => setProductsOpen((open) => !open)} className="nav-link">
-              Products <ChevronDown size={16} className={productsOpen ? "rotate-180" : ""} />
-            </button>
-            {productsOpen && (
-              <div className="product-dropdown">
-                <Link href="/products" className="product-dropdown-all" onClick={() => setProductsOpen(false)}>Browse all products <ArrowRight size={15} /></Link>
-                {materials.map((material) => (
-                  <button type="button" key={material.key} onClick={() => { setSelectedMaterial(material.key); setProductsOpen(false); scrollToSection("planner"); }}>
-                    <span>{material.name}</span>
-                    <small>{material.description}</small>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-          <button type="button" className="nav-link" onClick={() => scrollToSection("why-mabna")}>Why MABNA?</button>
-          <button type="button" className="nav-link" onClick={() => scrollToSection("how-it-works")}>How It Works</button>
+          <details className="product-menu">
+            <summary className="nav-link"><span>Products</span><ChevronDown size={16} /></summary>
+            <div className="product-dropdown">
+              <Link href="/products" className="product-dropdown-all">Browse all products <ArrowRight size={15} /></Link>
+              {materials.map((material) => <Link href={material.href} key={material.key}><span>{material.name}</span><small>{material.description}</small></Link>)}
+            </div>
+          </details>
+          <a href="#why-mabna" className="nav-link">Why MABNA?</a>
+          <a href="#how-it-works" className="nav-link">How It Works</a>
           <Link href="/resources" className="nav-link">Resources</Link>
           <Link href="/contact" className="nav-link">Contact Us</Link>
         </nav>
 
-        <button type="button" className="logo-button" onClick={() => scrollToSection("top")}><Logo /></button>
+        <Link href="/" className="logo-button" aria-label="MABNA home"><Logo /></Link>
       </header>
 
       <header className="mobile-nav glass-panel">
-        <button type="button" className="mobile-menu-trigger" onClick={() => setMenuOpen((open) => !open)}>
-          {menuOpen ? <X size={29} /> : <Menu size={31} />}<span>Menu</span>
-        </button>
-        <button type="button" className="logo-button" onClick={() => scrollToSection("top")}><Logo /></button>
+        <details className="home-mobile-menu">
+          <summary className="mobile-menu-trigger"><Menu size={31} /><span>Menu</span></summary>
+          <div className="mobile-menu glass-panel">
+            <Link href="/products">Products</Link>
+            <a href="#why-mabna">Why MABNA?</a>
+            <a href="#how-it-works">How It Works</a>
+            <Link href="/resources">Resources</Link>
+            <Link href="/contact">Contact Us</Link>
+          </div>
+        </details>
+        <Link href="/" className="logo-button" aria-label="MABNA home"><Logo /></Link>
         <div className="mobile-nav-actions">
-          <IconButton label="Search"><Search size={28} strokeWidth={2} /></IconButton>
+          <Link href="/products#catalogue" className="icon-button" aria-label="Search products"><Search size={28} strokeWidth={2} /></Link>
           <span className="nav-divider" />
-          <IconButton label="Shopping cart"><ShoppingCart size={28} strokeWidth={2} /><span className="cart-badge">3</span></IconButton>
+          <Link href="/products" className="icon-button" aria-label="Browse products"><ShoppingCart size={28} strokeWidth={2} /></Link>
         </div>
       </header>
-
-      {menuOpen && (
-        <div className="mobile-menu glass-panel">
-          <button type="button" onClick={() => scrollToSection("planner")}>Products</button>
-          <button type="button" onClick={() => scrollToSection("why-mabna")}>Why MABNA?</button>
-          <button type="button" onClick={() => scrollToSection("how-it-works")}>How It Works</button>
-          <Link href="/resources">Resources</Link>
-          <Link href="/contact">Contact Us</Link>
-        </div>
-      )}
 
       <div id="top" className="site-content">
         <section className="hero-section">
@@ -203,9 +150,9 @@ export default function Home() {
                   </button>
                 ))}
               </div>
-              <button type="button" className="estimate-button" onClick={openEstimate}>
+              <Link href="/contact" className="estimate-button">
                 <ArrowRight className="estimate-leading-icon" size={24} /><span>Estimate your needs</span><Calculator size={25} strokeWidth={2.1} />
-              </button>
+              </Link>
             </section>
           </div>
 
@@ -240,11 +187,11 @@ export default function Home() {
             {categories.map((category) => {
               const CategoryIcon = category.icon;
               return (
-                <button type="button" className="category-card" key={category.title} onClick={() => setSelectedMaterial(category.kind === "steel" ? "steel" : category.kind === "cement" ? "cement" : "tools")}>
+                <Link href={category.href} className="category-card" key={category.title}>
                   <span className={`category-image category-${category.kind}`} aria-hidden="true" />
                   <span className="category-bar"><span className="circle-arrow"><ArrowRight size={20} /></span><span className="category-title">{category.title}</span><CategoryIcon className="category-icon" size={28} strokeWidth={1.9} /></span>
                   <span className="category-caption">{category.caption}</span>
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -259,24 +206,6 @@ export default function Home() {
         <footer className="site-footer"><Logo light /><span>Building a stronger future.</span><span>© {new Date().getFullYear()} MABNA Materials</span></footer>
       </div>
 
-      {estimateOpen && (
-        <div className="modal-backdrop" role="presentation" onMouseDown={closeEstimate}>
-          <section className="estimate-modal glass-panel" role="dialog" aria-modal="true" aria-labelledby="estimate-title" onMouseDown={(event) => event.stopPropagation()}>
-            <button type="button" className="modal-close" aria-label="Close estimate" onClick={closeEstimate}><X size={22} /></button>
-            {!submitted ? (
-              <>
-                <span className="modal-icon"><Calculator size={26} /></span><span className="contact-kicker">Project planner</span><h2 id="estimate-title">Estimate your needs</h2><p>Start with a quick material brief. We’ll use it to prepare a clear quote for your project.</p>
-                <div className="estimate-summary"><span>Selected material</span><strong>{selected.name}</strong></div>
-                <label className="quantity-label" htmlFor="quantity">Approximate quantity</label>
-                <div className="quantity-row"><input id="quantity" value={quantity} onChange={(event) => setQuantity(event.target.value)} inputMode="numeric" /><span>units / m²</span></div>
-                <button type="button" className="estimate-button modal-submit" onClick={() => setSubmitted(true)}><span>Prepare my quote</span><ArrowRight size={22} /></button>
-              </>
-            ) : (
-              <div className="success-state"><span className="success-icon"><Check size={29} /></span><span className="contact-kicker">Planner saved</span><h2>Your material brief is ready.</h2><p>{selected.name} · {quantity || "0"} units / m². A MABNA specialist can take it from here.</p><button type="button" className="outline-button" onClick={closeEstimate}>Done</button></div>
-            )}
-          </section>
-        </div>
-      )}
     </main>
   );
 }
