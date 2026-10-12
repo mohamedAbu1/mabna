@@ -104,7 +104,7 @@ export const catalogProducts: CatalogProduct[] = [
     summary: "A dependable starting point for structural mixes and everyday site work.",
     spec: "50 kg bag · project quote",
     useCase: "Foundations, slabs and masonry",
-    image: "/assets/planner-cement.png",
+    image: "/assets/3d/unique/products/structural-cement-v2.png",
     badge: "Core material",
   },
   {
@@ -115,7 +115,7 @@ export const catalogProducts: CatalogProduct[] = [
     summary: "Rebar and reinforcement options organised around the structure you are building.",
     spec: "Standard diameters · cut to brief",
     useCase: "Columns, slabs and footings",
-    image: "/assets/planner-steel.png",
+    image: "/assets/3d/unique/products/reinforcement-steel-v2.png",
     badge: "Structural",
   },
   {
@@ -126,7 +126,7 @@ export const catalogProducts: CatalogProduct[] = [
     summary: "The essential hand tools for measuring, preparing and finishing daily site work.",
     spec: "Curated set · ready to quote",
     useCase: "General construction work",
-    image: "/assets/planner-tools.png",
+    image: "/assets/3d/unique/products/site-tool-set-v2.png",
     badge: "Site essential",
   },
   {
@@ -137,7 +137,7 @@ export const catalogProducts: CatalogProduct[] = [
     summary: "Practical walling materials for dependable partitions, boundaries and build stages.",
     spec: "Bulk quantities · delivery planning",
     useCase: "Walls, partitions and site works",
-    image: "/assets/cat-cement-materials.png",
+    image: "/assets/3d/unique/products/masonry-blocks-v2.png",
   },
   {
     slug: "waterproofing-system",
@@ -147,7 +147,7 @@ export const catalogProducts: CatalogProduct[] = [
     summary: "A considered system of membranes, coatings and sealants for exposed areas.",
     spec: "System-based · technical guidance",
     useCase: "Roofs, wet areas and basements",
-    image: "/assets/mabna-desktop-reference.png",
+    image: "/assets/3d/unique/products/waterproofing-system-v2.png",
     badge: "Protection",
   },
   {
@@ -158,7 +158,7 @@ export const catalogProducts: CatalogProduct[] = [
     summary: "A clear starting point for safer daily work across a small or growing crew.",
     spec: "Crew quantities · quote-based",
     useCase: "Active sites and workshops",
-    image: "/assets/cat-site-setup.png",
+    image: "/assets/3d/unique/products/site-safety-kit-v2.png",
   },
 ];
 
