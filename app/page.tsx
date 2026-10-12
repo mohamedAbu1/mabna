@@ -21,6 +21,7 @@ import {
   Wrench,
   X,
 } from "lucide-react";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 type MaterialKey = "steel" | "cement" | "tools";
@@ -140,6 +141,7 @@ export default function Home() {
             </button>
             {productsOpen && (
               <div className="product-dropdown">
+                <Link href="/products" className="product-dropdown-all" onClick={() => setProductsOpen(false)}>Browse all products <ArrowRight size={15} /></Link>
                 {materials.map((material) => (
                   <button type="button" key={material.key} onClick={() => { setSelectedMaterial(material.key); setProductsOpen(false); scrollToSection("planner"); }}>
                     <span>{material.name}</span>
@@ -151,7 +153,8 @@ export default function Home() {
           </div>
           <button type="button" className="nav-link" onClick={() => scrollToSection("why-mabna")}>Why MABNA?</button>
           <button type="button" className="nav-link" onClick={() => scrollToSection("how-it-works")}>How It Works</button>
-          <button type="button" className="nav-link" onClick={() => scrollToSection("contact")}>Contact Us</button>
+          <Link href="/resources" className="nav-link">Resources</Link>
+          <Link href="/contact" className="nav-link">Contact Us</Link>
         </nav>
 
         <button type="button" className="logo-button" onClick={() => scrollToSection("top")}><Logo /></button>
@@ -174,7 +177,8 @@ export default function Home() {
           <button type="button" onClick={() => scrollToSection("planner")}>Products</button>
           <button type="button" onClick={() => scrollToSection("why-mabna")}>Why MABNA?</button>
           <button type="button" onClick={() => scrollToSection("how-it-works")}>How It Works</button>
-          <button type="button" onClick={() => scrollToSection("contact")}>Contact Us</button>
+          <Link href="/resources">Resources</Link>
+          <Link href="/contact">Contact Us</Link>
         </div>
       )}
 
@@ -230,7 +234,7 @@ export default function Home() {
         <section id="why-mabna" className="category-section">
           <div className="section-intro">
             <div><div className="eyebrow compact"><span /> <span>Shop materials</span></div><p>Everything your next build needs, in one place.</p></div>
-            <button type="button" className="section-action" onClick={() => scrollToSection("contact")}>Explore categories <ArrowRight size={20} /></button>
+            <Link href="/products" className="section-action">Explore categories <ArrowRight size={20} /></Link>
           </div>
           <div className="category-grid">
             {categories.map((category) => {
@@ -249,7 +253,7 @@ export default function Home() {
 
         <section id="contact" className="contact-strip glass-panel">
           <div><span className="contact-kicker">Ready when you are</span><h2>Make the next step<br />the stronger one.</h2></div>
-          <div className="contact-action-wrap"><p>Tell us what you’re building and we’ll help you plan the materials.</p><button type="button" className="outline-button" onClick={openEstimate}>Start a project estimate <ArrowRight size={19} /></button></div>
+          <div className="contact-action-wrap"><p>Tell us what you’re building and we’ll help you plan the materials.</p><Link href="/contact" className="outline-button">Start a project estimate <ArrowRight size={19} /></Link></div>
         </section>
 
         <footer className="site-footer"><Logo light /><span>Building a stronger future.</span><span>© {new Date().getFullYear()} MABNA Materials</span></footer>
