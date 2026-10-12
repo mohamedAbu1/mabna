@@ -149,6 +149,38 @@ h1 { max-width:570px; margin-top:14px; font-size:clamp(58px,5.4vw,83px); line-he
 .footer-dot { width:5px; height:5px; border-radius:50%; background:var(--orange); }
 .footer-bottom a { display:inline-flex; align-items:center; gap:5px; color:#ded8d0; text-decoration:none; }
 .footer-bottom a:hover { color:var(--orange-soft); }
+@keyframes mabna-fade-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@keyframes mabna-fade-down { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes mabna-scale-in { from { opacity:0; transform:scale(.965); } to { opacity:1; transform:scale(1); } }
+@keyframes mabna-image-drift { from { transform:scale(1.015) translate3d(0,0,0); } to { transform:scale(1.055) translate3d(-.7%, -.35%, 0); } }
+@keyframes mabna-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
+@keyframes mabna-pulse { 0%,100% { box-shadow:0 0 0 0 rgba(242,106,27,0); } 50% { box-shadow:0 0 0 5px rgba(242,106,27,.14); } }
+@keyframes mabna-line-draw { from { transform:scaleX(0); transform-origin:left; } to { transform:scaleX(1); transform-origin:left; } }
+@media (prefers-reduced-motion:no-preference) {
+  .mabna-site { animation:mabna-scale-in .65s cubic-bezier(.22,1,.36,1) both; }
+  .desktop-nav,.page-nav,.page-mobile-nav { animation:mabna-fade-down .65s cubic-bezier(.22,1,.36,1) .04s both; }
+  .hero-copy,.page-hero-copy { animation:mabna-fade-up .75s cubic-bezier(.22,1,.36,1) .08s both; }
+  .hero-visual,.page-hero-visual,.category-hero-image,.product-detail-visual,.process-hero-diagram,.resource-index,.about-hero-visual,.contact-hero-grid { animation:mabna-scale-in .9s cubic-bezier(.22,1,.36,1) .14s both; }
+  .hero-visual img { animation:mabna-image-drift 16s ease-in-out .9s infinite alternate; }
+  .hero-feature-list,.hero-side-note { animation:mabna-fade-up .7s cubic-bezier(.22,1,.36,1) .55s both; }
+  .planner-card,.process-bar,.contact-strip,.principles-panel,.resource-cta,.about-cta { animation:mabna-fade-up .7s cubic-bezier(.22,1,.36,1) .3s both; }
+  .category-card,.directory-card,.product-card,.step-card { animation:mabna-fade-up .65s cubic-bezier(.22,1,.36,1) both; }
+  .category-card:nth-child(1),.directory-card:nth-child(1),.product-card:nth-child(1),.step-card:nth-child(1) { animation-delay:.16s; }
+  .category-card:nth-child(2),.directory-card:nth-child(2),.product-card:nth-child(2),.step-card:nth-child(2) { animation-delay:.23s; }
+  .category-card:nth-child(3),.directory-card:nth-child(3),.product-card:nth-child(3),.step-card:nth-child(3) { animation-delay:.3s; }
+  .category-card:nth-child(4),.directory-card:nth-child(4),.product-card:nth-child(4),.step-card:nth-child(4) { animation-delay:.37s; }
+  .page-section-heading::after { content:""; display:block; width:58px; height:3px; margin-top:23px; border-radius:99px; background:var(--orange); animation:mabna-line-draw .65s ease-out .35s both; }
+  .site-footer { animation:mabna-fade-up .8s cubic-bezier(.22,1,.36,1) .35s both; }
+  .footer-status>span { animation:mabna-pulse 2.6s ease-in-out 1s infinite; }
+  .footer-main::after { content:""; position:absolute; top:43px; left:43px; width:54px; height:1px; background:var(--orange); animation:mabna-line-draw .65s ease-out .7s both; }
+  .estimate-button svg:last-child,.primary-page-button svg,.outline-button svg,.section-action svg,.footer-cta svg,.footer-column a svg { transition:transform .25s ease; }
+  .estimate-button:hover svg:last-child,.primary-page-button:hover svg,.outline-button:hover svg,.section-action:hover svg,.footer-cta:hover svg,.footer-column a:hover svg { transform:translateX(3px); }
+  .hero-feature-list { animation:mabna-fade-up .7s cubic-bezier(.22,1,.36,1) .55s both,mabna-float 5s ease-in-out 1.3s infinite; }
+  .hero-side-note { animation:mabna-fade-up .7s cubic-bezier(.22,1,.36,1) .55s both,mabna-float 6s ease-in-out 1.5s infinite; }
+}
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; }
+}
 .modal-backdrop { position:fixed; z-index:20; inset:0; display:grid; place-items:center; padding:22px; background:rgba(18,18,18,.56); backdrop-filter:blur(5px); }
 .estimate-modal { position:relative; width:min(455px,100%); padding:31px; border-radius:24px; background:var(--surface-strong); }
 .modal-close { position:absolute; top:17px; right:17px; display:grid; place-items:center; width:34px; height:34px; border:0; border-radius:50%; background:#eee9e3; color:var(--ink); }
