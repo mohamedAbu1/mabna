@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 
 export function PageShell({ active, children }: { active?: string; children: ReactNode }) {
   return (
-    <main className="mabna-site">
+    <main id="top" className="mabna-site">
       <div className="blueprint blueprint-one" />
       <div className="blueprint blueprint-two" />
       <SiteHeader active={active} />

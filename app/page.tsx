@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { SiteFooter } from "@/components/site-footer";
 
 type MaterialKey = "steel" | "cement" | "tools";
 
@@ -203,7 +204,7 @@ export default function Home() {
           <div className="contact-action-wrap"><p>Tell us what you’re building and we’ll help you plan the materials.</p><Link href="/contact" className="outline-button">Start a project estimate <ArrowRight size={19} /></Link></div>
         </section>
 
-        <footer className="site-footer"><Logo light /><span>Building a stronger future.</span><span>© {new Date().getFullYear()} MABNA Materials</span></footer>
+        <SiteFooter />
       </div>
 
     </main>
